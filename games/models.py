@@ -2,6 +2,7 @@ from django.db import models
 
 class Genre(models.Model):
     name = models.CharField(max_length=255)
+    description = models.TextField(default='Нет описания')
 
     def __str__(self):
         return self.name
@@ -29,7 +30,6 @@ class Game(models.Model):
     developer = models.ManyToManyField(
         to=Studio,
         blank=True,
-        null=True,
         verbose_name='Разработчики'
     )
     def __str__(self):
