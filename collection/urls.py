@@ -6,5 +6,6 @@ collection_router = routers.DefaultRouter()
 collection_router.register(r'', CollectionViewSet)
 
 urlpatterns = [
-    path('', include(collection_router.urls))
+    path('', include(collection_router.urls)),
+
 ]

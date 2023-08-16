@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -44,7 +44,7 @@ class GameCreateAPIView(APIView):
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = GameSerializer(data=data)
-        if serializer.is_valis():
+        if serializer.is_valid():
             return Response("все ок")
         else:
             errors = serializer.error_messages
@@ -56,3 +56,7 @@ class GameCreateAPIView(APIView):
                 data=response_data,
                 status=400
             )
+
+class GameViewSet(ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer

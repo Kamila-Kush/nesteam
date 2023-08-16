@@ -38,7 +38,8 @@ class Game(models.Model):
     def __str__(self):
         return self.name
     class Meta:
-        verbose_name='Игра'
+        ordering = ['id']
+        verbose_name = 'Игра'
         verbose_name_plural = 'Игры'
 
 

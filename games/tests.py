@@ -1,6 +1,7 @@
 from django.test import TestCase
 from rest_framework.test import APITestCase
 from .models import *
+from .factories import *
 
 
 class GameCreateAPITestCase(APITestCase):
@@ -47,4 +48,26 @@ class GameCreateAPITestCase(APITestCase):
         self.assertEqual(response.status_code, 405)
         games_exists = Game.objects.filter(name="Wrong form").exists()
         self.assertFalse(games_exists)
-# Create your tests here.
+
+# Game (Get List, get 1 object), с использованием factory
+class GameTest(APITestCase):
+    def setUp(self):
+        self.game_1 = GameFactory()
+        self.game_2 = GameFactory()
+        self.game_3 = GameFactory()
+    def test_get_list_of_3_games(self):
+        response = self.client.get('/game/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.game_1.name, response.data[0]["name"])
+        self.assertEqual(self.game_2.name, response.data[1]["name"])
+        self.assertEqual(self.game_3.name, response.data[2]["name"])
+
+    def test_get_one_game(self):
+        response = self.client.get(f'/game/{self.game_1.pk}/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.game_1.name, response.data["name"])
+        self.assertEqual(self.game_1.year, response.data["year"])
+
+    def test_delete_collection(self):
+        response = self.client.delete(f'/game/{self.game_1.pk}/')
+        self.assertEqual(response.status_code, 204)

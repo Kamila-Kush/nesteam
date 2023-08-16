@@ -14,7 +14,8 @@ class GameCollection(models.Model):
         to=User,
         related_name='game_collection',
         verbose_name='автор',
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True
     )
     likes = models.ManyToManyField(
         to=User,

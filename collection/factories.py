@@ -9,6 +9,6 @@ class CollectionFactory(factory.django.DjangoModelFactory):
         model = GameCollection
 
     name = factory.Sequence(
-        lambda n: f'Test collection {n}'
+        lambda number: f'Test collection_{number}'
     )
     author = factory.SubFactory(UserFactory)

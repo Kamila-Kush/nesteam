@@ -26,6 +26,7 @@ from usersapp.urls import *
 router = routers.DefaultRouter()
 router.register(r'genre', GenreViewSet)
 router.register(r'studio', StudioViewSet)
+router.register(r'game', GameViewSet)
 
 
 
