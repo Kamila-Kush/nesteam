@@ -15,14 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework import routers
+from rest_framework_swagger.views import get_swagger_view
 
 from games.views import *
 from usersapp.urls import *
 
+
 router = routers.DefaultRouter()
 router.register(r'genre', GenreViewSet)
+router.register(r'studio', StudioViewSet)
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,8 +38,11 @@ urlpatterns = [
     # path('studios/', studio_list, name='studios'),
 
     path('games/', GamesView.as_view(), name='games'),
+    path('game-create/', GameCreateAPIView.as_view(), name='create-game'),
     path('studios/', StudiosListAPIView.as_view(), name='studios'),
     path('users/', include('usersapp.urls')),
 
+    path('collections/', include('collection.urls')),
     path('', include(router.urls)),
+
 ]

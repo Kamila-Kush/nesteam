@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Genre(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default='Нет описания')
@@ -32,6 +33,8 @@ class Game(models.Model):
         blank=True,
         verbose_name='Разработчики'
     )
+
+
     def __str__(self):
         return self.name
     class Meta:
