@@ -8,11 +8,11 @@ from rest_framework.viewsets import ModelViewSet
 from .models import Genre, Game, Studio
 from .serializers import GameSerializer, StudioSerializer, GenreSerializer
 
-def games_list(request):
-    game_lst = Game.objects.all()
-    serializer = GameSerializer(game_lst, many=True)
-    data = serializer.data
-    return JsonResponse(data, safe=False)
+# def games_list(request):
+#     game_lst = Game.objects.all()
+#     serializer = GameSerializer(game_lst, many=True)
+#     data = serializer.data
+#     return JsonResponse(data, safe=False)
 
 # def studio_list(request):
 #     studio_lst = Studio.objects.all()
@@ -29,7 +29,7 @@ class StudiosListAPIView(ListAPIView):
 #     serializer_class = GameSerializer
 
 class GamesView(ListCreateAPIView):
-    queryset= Game.objects.all()
+    queryset = Game.objects.all()
     serializer_class = GameSerializer
 
 class GenreViewSet(ModelViewSet):

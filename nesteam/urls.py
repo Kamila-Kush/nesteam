@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
+from django.views.generic import TemplateView
 from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
+from rest_framework.schemas import get_schema_view
+
 
 from games.views import *
 from usersapp.urls import *
@@ -46,4 +49,7 @@ urlpatterns = [
     path('collections/', include('collection.urls')),
     path('', include(router.urls)),
 
+    path('api_schema/', get_schema_view(title='API Schema NESTEAM', description='test'), name='api_schema'),
+    path('docs/', TemplateView.as_view(template_name='docs.html', extra_context={'schema_url': 'api_schema'}),
+         name='swagger-ui'),
 ]
