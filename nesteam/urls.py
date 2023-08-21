@@ -51,6 +51,10 @@ urlpatterns = [
     path('collections/', include('collection.urls')),
     path('', include(router.urls)),
 
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls.jwt')),
+
     path('api_schema/', get_schema_view(title='API Schema NESTEAM', description='test'), name='api_schema'),
     path('docs/', TemplateView.as_view(template_name='docs.html', extra_context={'schema_url': 'api_schema'}),
          name='swagger-ui'),
