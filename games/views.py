@@ -3,6 +3,7 @@ from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIVie
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from django.db.models import Q
 
 
 from .models import Genre, Game, Studio
@@ -57,6 +58,27 @@ class GameCreateAPIView(APIView):
                 status=400
             )
 
+
 class GameViewSet(ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+
+class GamesSearchView(APIView):
+    def get(self, request):
+        if 'key_word' in request.GET:  #для ввода поиска через строку: http://127.0.0.1:8000/game-search/?key_word=
+            key_word = request.GET['key_word']
+        elif 'key_word' in request.data: #для ввода поиска через форму (фронтенд)
+            key_word = request.data['key_word']
+        else: #защита от дурака
+            return Response('no data', status=400)
+
+        games = Game.objects.filter(
+            Q(name__icontains=key_word) |
+            Q(genre__name__icontains=key_word) |
+            Q(studio__name__icontains=key_word)
+        )
+
+        serializer = GameSerializer(instance=games, many=True)
+        json_data = serializer.data
+        return Response(data=json_data)

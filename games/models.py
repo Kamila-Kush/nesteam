@@ -28,7 +28,7 @@ class Game(models.Model):
         on_delete=models.SET_NULL,
         verbose_name='жанр'
     )
-    developer = models.ManyToManyField(
+    studio = models.ManyToManyField(
         to=Studio,
         blank=True,
         verbose_name='Разработчики'
