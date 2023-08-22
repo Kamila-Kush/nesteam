@@ -51,6 +51,8 @@ urlpatterns = [
     path('collections/', include('collection.urls')),
     path('', include(router.urls)),
 
+
+
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
