@@ -7,5 +7,6 @@ collection_router.register(r'', CollectionViewSet)
 
 urlpatterns = [
     path('', include(collection_router.urls)),
+    path('user-collection/', UserCollectionAPIView().as_view(), name='user-collection'),
 
 ]

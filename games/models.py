@@ -12,7 +12,7 @@ class Studio(models.Model):
     name = models.CharField(max_length=255)
     workers_count = models.PositiveIntegerField(null=True, blank=True)
     games_count = models.PositiveIntegerField()
-    founding_year = models.PositiveIntegerField()
+    founding_year = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
